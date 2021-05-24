@@ -1,0 +1,174 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập vào GrabFood";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div id="container">
+        <h3>Firebase Phone Number Auth. Demo</h3>
+        <div id="loading">Loading...</div>
+        <div id="loaded" class="hidden">
+            <div id="main">
+                <div id="user-signed-in" class="hidden">
+                    <div id="user-info">
+                        <div id="photo-container">
+                            <img id="photo">
+                        </div>
+                        <div id="name"></div>
+                        <div id="email"></div>
+                        <div id="phone"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <p>
+                        <button id="sign-out">Sign Out</button>
+                        <button id="delete-account">Delete account</button>
+                    </p>
+                </div>
+                <div id="user-signed-out" class="hidden">
+                    <h4>You are signed out.</h4>
+                    <div id="firebaseui-spa">
+                        <h3>Single Page App mode:</h3>
+                        <div id="firebaseui-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/app.js"></script>*@
+@*
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form">
+                    <h2>Đăng Nhập</h2>
+                    @if (@ViewData["Loi"] != null)
+                    {
+                        <br />
+                        <h5> @ViewData["Loi"] </h5>
+                    }
+                    <form action="@Url.Action("DangNhap", "KhachHang")" method="post">
+                        <input type="text" name="taikhoandangnhap" placeholder="Tên tài khoản" />
+                        <input type="password" name="matkhaudangnhap" placeholder="Mật khẩu" />
+                        <button type="submit" class="btn btn-default">Đăng nhập</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <h2 class="or">OR</h2>
+            </div>
+            <div class="col-sm-4">
+                <div class="signup-form">
+                    <h2>Đăng Ký</h2>
+                    <form action="/KhachHang/DangKy" method="post" enctype="multipart/form-data">
+                        <input type="text" name="hoten" placeholder="Họ và tên" />
+                        <input type="text" name="gioitinh" placeholder="Giới tính">
+                        <input type="text" name="dienthoai" placeholder="Số điện thoại" />
+                        <input type="text" name="diachi" placeholder="Địa chỉ" />
+                        <input type="text" name="taikhoandangky" placeholder="Tên tài khoản" />
+                        <input type="file" name="hinh"/>
+                        <input type="password" name="matkhaudangky" placeholder="Mật khẩu" />
+                        <button type="submit" class="btn btn-default">Đăng ký</button>
+                        <br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<style>
+
+    .now-login {
+        width: 600px;
+        margin: auto;
+        clear: both;
+        padding: 30px 0;
+    }
+
+        .now-login .content {
+            padding: 30px;
+            background-color: #fff;
+            min-height: 400px;
+            border-radius: 5px;
+        }
+
+        .now-login .title {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 17px;
+        }
+
+        .now-login .text {
+            font-size: 12px;
+            color: #464646;
+            text-align: center;
+        }
+</style>
+<div class="now-login">
+    <div class="content">
+        <p style="margin:10px auto 10px ; text-align:center">ĐĂNG NHẬP</p>
+        <form action="/KhachHang/DangNhap" method="post">
+            <input class="form-control" name="usename" type="text" style="width:100% ; height:30px ;margin:20px auto 10px " placeholder="Số điện thoại hoặc gmail" />
+            <input class="form-control" name="pass" type="password" style="width:100% ; height:30px ;margin:20px auto 10px" placeholder="Password" />
+            @if(Request.HttpMethod=="POST")
+            {
+                <label style="color:red;text-align:center">Tài khoản hoặc mật khẩu không chính xác</label>
+            }
+            <input class="form-control btn-primary" type="submit" value="Đăng Nhập" style="width:100% ;margin:20px auto 10px" />
+        </form>
+        <button class="form-control btn-success" data-toggle="modal" data-target="#myMoKh">Đăng Ký</button>
+        <div class="modal" id="myMoKh" tabindex="-1" role="dialog" aria-hidden="true"> 
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><h3 class="modal-title" style="text-align:center">Đăng ký tài khoản</h3></div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="SDT">Số Điện Thoại</label>
+                                <input type="text" class="form-control" id="SDT" />
+                            </div>
+                            <div class="form-group">
+                                <label for="gmail">Gmail</label>
+                                <input type="email" class="form-control" id="gmail" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Hoten">Họ Và Tên</label>
+                                <input type="text" class="form-control" id="HoTen" />
+                            </div>
+                            <div class="form-group">
+                                <label for="gioitinh">Giới Tính</label>
+                                <select class="form-control" id="gioitinh" name="gioitinh">
+                                    <option value="" selected>Nam</option>
+                                    <option value="" selected>Nữ</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="DiaChi">Địa chỉ</label>
+                                <select class="form-control" id="province" name="province" style="margin-top:5px" onchange="changeFunc();">
+                                    <option value="" selected>Tỉnh/Thành Phố</option>
+                                </select>
+                                <select class="form-control" id="district" name="district" style="margin-top:5px" onchange="changeFuncDictrict();">
+                                    <option value="" selected>Quận/Huyện</option>
+                                </select>
+                                <select class="form-control" id="ward" name="ward" style="margin-top:5px">
+                                    <option value="" selected>Phường/Xã</option>
+                                </select>
+                                <input class="form-control" type="text" id="duong" placeholder="Số nhà, Tên Đường" style="margin-top:5px" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Matkhau">Mật Khẩu</label>
+                                <input type="password" class="form-control" id="Pass" placeholder="Mật Khẩu" />
+                            </div><div class="form-group">
+                                <label for="Matkhaunl">Nhập lại mật khẩu</label>
+                                <input type="password" class="form-control" id="cfPass" placeholder="Nhập lại mật khẩu" />
+                            </div>
+                            <button class="form-control btn-success" id="add" onclick="addtaikhoan();">Đăng Ký Tài Khoản</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

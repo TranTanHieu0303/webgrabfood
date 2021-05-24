@@ -1,0 +1,214 @@
+﻿@model webgrabfood.Models.CuaHang
+
+@{
+    ViewBag.Title = "TrangChuCh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@if(ViewBag.tb != "")
+{
+        <script type="text/html" charset="utf-8">
+            confirm('@ViewBag.tb');
+        </script>
+}
+
+
+<style>
+    html,
+    body {
+        position: relative;
+        height: 300px;
+    }
+
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+
+    .swiper-slide {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .Hinhdong {
+        width: 30%;
+        height: 300px;
+        float: left;
+    }
+
+    .cuahangtilter {
+        width: 70%;
+        float: right;
+        height: 300px;
+    }
+
+    .menu {
+        width: 300px;
+        margin: auto;
+    }
+
+    .codinhmenu {
+        position: fixed;
+        top: 0;
+        width: 300px;
+        margin: auto;
+    }
+
+    .containerimg {
+        position: relative;
+        width: 100px;
+        height:100px;
+        float:left;
+        margin-left:5px;
+    }
+
+    .imaged {
+        display: block;
+        width: 100px;
+        height: 100px;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.5); /* Black see-through */
+        color: #f1f1f1;
+        float: right;
+        transition: .5s ease;
+        opacity: 0;
+        color: white;
+        font-size: 5px;
+        padding: 2px;
+        text-align: center;
+    }
+
+    .containerimg:hover .overlay {
+        opacity: 1;
+    }
+</style>
+<div class="row" style="background-color: white ;min-height:440px">
+    <div class="col-md-4" style="padding:20px">
+        <div class="swiper-container mySwiper">
+            <div class="swiper-wrapper">
+                @foreach (string urlhinh in ViewBag.chuoihinh)
+                {<div class="swiper-slide"><img src="@urlhinh"style="width:400px ;height:400px" /></div>}
+
+            </div>
+            <div class="swiper-pagination" style="bottom:20px"></div>
+        </div>
+    </div>
+    <div class="col-md-8" style="padding:20px; font-size:18px">
+        <h2>@Model.TenCH</h2>
+        <p>Mô tả : @Model.MoTa</p>
+        <p>Địa chỉ:@Model.SonhaTenDuong, @Model.PhuongXa, @Model.QuanHuyen, @Model.TinhThanh</p>
+        <p>Liên hệ:@Model.SDT - @Model.Gmail</p>
+        <button class="btn" data-toggle="modal" data-target="#chinhsuacuhang" style="float:right">Chỉnh sữa</button>
+    </div>
+</div>
+<div class="row" style="clear:both;margin:5px 0 5px 0">
+    <div class="col-md-3" style="padding:0 10px">
+        <div class="menu">
+            @Html.Action("MenuCh", "CuaHang")
+        </div>
+    </div>
+    <div class="col-md-6">
+        @Html.Action("dssp", "CuaHang")
+    </div>
+    <div class="col-md-3" style="padding:0 10px">
+        <p>ĐƠn hàng chờ xử lý</p>
+    </div>
+</div>
+<div class="modal fade" id="chinhsuacuhang" tabindex="-1" role="dialog" aria-labelledby="mylabelCH" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h3 class="modal-title" style="text-align:center">Chỉnh sửa thông tin</h3></div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    <input id="xoahinh" style="display:none" />
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="text" class="form-control" id="SDTCH" name="SDTCH" value="@Model.SDT" />
+                    </div>
+                    <div class="form-group">
+                        <label>Gmail</label>
+                        <input type="email" class="form-control" id="gmailCH" name="gmailCH" value="@Model.Gmail" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tên Quán Ăn</label>
+                        <input type="text" class="form-control" id="TenCH" name="TenCH" value="@Model.TenCH" />
+                    </div>
+                    <div class="form-group">
+                        <label>Hình Ảnh Quán Ăn</label><br />
+                        @foreach (string urlhinh in ViewBag.chuoihinh)
+                        {
+                            <div class="containerimg">
+                                <button class="overlay">X</button>
+                                <img src="@urlhinh" class="imaged" />
+                            </div>
+                        }
+                        <img id="openfile" src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Fimage-file-add--v2.png?alt=media&token=0b599aab-7679-48ba-afae-b6a668be77b1" class="imaged" />
+                        <input type="file" class="form-control" id="hinhanh" name="hinhanh" accept="image/*" style="display:none"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Mô tả</label>
+                        <textarea rows="4" cols="1" class="form-control" id="Mota" name="Mota">@Model.MoTa</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <select class="form-control" id="province" name="provinceCH" style="margin-top:5px" onchange="changeFunc();">
+                            <option value="" selected>@Model.TinhThanh</option>
+                        </select>
+                        <select class="form-control" id="district" name="districtCH" style="margin-top:5px" onchange="changeFuncDictrict();">
+                            <option value="" selected>@Model.QuanHuyen</option>
+                        </select>
+                        <select class="form-control" id="ward" name="wardCH" style="margin-top:5px">
+                            <option value="" selected>@Model.PhuongXa</option>
+                        </select>
+                        <input class="form-control" type="text" id="duongCH" name="duongCH" placeholder="Số nhà, Tên Đường" style="margin-top:5px" value="@Model.SonhaTenDuong"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Đổi Mật Khẩu</label>
+                        <input type="password" class="form-control" id="PassCH" name="PassCH" placeholder="Nhập Mật Khẩu Cũ" />
+                        <input type="password" class="form-control" id="passwword" name="passwword" placeholder="Nhập mật khẩu mới" />
+                    </div>
+                    <input class="form-control btn-success" type="submit" value="Lưu chỉnh sửa" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

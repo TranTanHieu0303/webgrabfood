@@ -1,0 +1,256 @@
+﻿
+@{
+    ViewBag.Title = "test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+
+}
+<form action="/KhachHang/test" method="post">
+    <input class="form-control" type="text" id="aa" name="aa" />
+    <input class="form-control" type="submit" />
+</form>
+<script src="~/Content/thanhcuon.js"></script>
+<!--<!--<h2>test</h2>
+    <label>Image File:</label>
+    <br />
+    <input type="file" id="imageLoader" name="imageLoader" />
+    <canvas id="imageCanvas"></canvas>
+    <input type="button" id="luu" value="Save" />
+<form action="/KhachHang/testAsync" method="post" enctype="multipart/form-data">
+
+
+        <input type="file" name="fi" />
+        <button type="submit" class="btn btn-default" >Đăng ký</button>
+        <br />
+    </form>
+<script src="~/Content/appImage.js"></script>
+<div id="container">
+    <h3>Upload file using firebase</h3>
+    <input id="tb" type="text" value="a" />
+    <input id="name" type="text"  />
+    <input id="email" type="text"  />
+    <input type="file" id="fileButton" name="">
+
+    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+
+    <div id="loaded">
+        <div id="main">
+            <div id="user-signed-in">
+                <div id="user-info">
+                    <div id="photo-container">
+                        <img id="photo">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    //var imageLoader = document.getElementById('imageLoader');
+    //var img = new Image();
+    //imageLoader.addEventListener('change', handleImage, false);
+    //var canvas = document.getElementById('imageCanvas');
+    //var ctx = canvas.getContext('2d');
+
+    //var savefile = document.getElementById('luu');
+    //savefile.addEventListener('click', uploadFile(f), false);
+    //function handleImage(e) {
+    //    var reader = new FileReader();
+    //    reader.onload = function (event) {
+
+    //        img.onload = function () {
+    //            canvas.width = img.width;
+    //            canvas.height = img.height;
+    //            ctx.drawImage(img, 0, 0);
+    //        }
+    //        img.src = event.target.result;
+    //    }
+    //    reader.readAsDataURL(e.target.files[0]);
+    //}
+    (function () {
+
+        console.log('connect to firebase');
+
+        // Initialize Firebase
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl42UQ0cpTZqV5PJ_djoIQT6zuoPkm6WE",
+            authDomain: "webgrabfood.firebaseapp.com",
+            databaseURL: "https://webgrabfood-default-rtdb.firebaseio.com",
+            projectId: "webgrabfood",
+            storageBucket: "webgrabfood.appspot.com",
+            messagingSenderId: "342657322371",
+            appId: "1:342657322371:web:264ee78e04ae26616a7ab6",
+            measurementId: "G-VT6KHM6347"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var database = firebase.database();
+        const urlhinh;
+
+        /**
+         * Initializes the app.
+         */
+        var initApp = function () {
+
+            const fileButton = document.getElementById('fileButton');
+            //$('input[type=file]').change(function () {
+            //    var filePath = $('#fileButton').val();
+            //    tb.value = filePath;
+            //    _img.src = filePath;
+            //});
+            //const savefile = document.getElementById('luu');
+            if (!!fileButton) {
+                var filea;
+                fileButton.addEventListener('change', function (e) {
+                    filea = e.target.files[0];
+                    uploadFile(filea);
+                });
+                //savefile.addEventListener('click', function () {
+                //    uploadFile(filea);
+                //    var name = document.getElementById('name').value;
+                //    var email = document.getElementById('email').value;
+                //   // database.push({ name: name, email: email });
+                //    database.ref('KhachHang/'+'3').set({
+                //        username: name,
+                //        email: email,
+                //        profile_picture: urlhinh
+                //    });
+
+                //});
+
+            }
+
+        };
+        function hienthifile(file) {
+            var tb = document.getElementById('tb');
+            var _img = document.getElementById('photo');
+
+
+            //newImg.onload = function () {
+            //    _img.src = this.src;
+            //}
+
+            //newImg.src = sfile.src;
+
+        }
+        function getFilePath() {
+            $('input[type=file]').change(function () {
+                var filePath = $('#fileButton').val().split('\\').pop();
+            });
+        }
+        function uploadFile(file) {
+
+            // var newMetadata = {
+            //   cacheControl: 'public,max-age=300',
+            //   contentType: 'image/jpeg',
+            //   contentLanguage: null,
+            //   customMetadata: {
+            //     whatever: 'we feel like',
+            //   },
+            // };
+
+            // Create the file metadata
+            var metadata = {
+                contentType: 'image/jpeg',
+            };
+            var uploadTask = firebase.storage().ref("image" + Date.now()).put(file, metadata);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(
+                firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function (snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+                    progressBar.value = progress;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function (error) {
+                    // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
+
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            // User doesn't have permission to access the object
+                            tb.title = 'storage/unauthorized';
+                            break;
+
+                        case 'storage/canceled':
+                            // User canceled the upload
+                            tb.title = 'storage/canceled';
+                            break;
+
+                        case 'storage/unknown':
+                            tb.title = 'storage/unknown';
+                            // Unknown error occurred, inspect error.serverResponse
+                            break;
+                    }
+                },
+                function () {
+                    // Upload completed successfully, now we can get the download URL
+                    var tb = document.getElementById('tb');
+                    uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                        console.log('File available at', downloadURL);
+                        var _img = document.getElementById('photo');
+                        var newImg = new Image;
+                        newImg.onload = function () {
+                            _img.src = this.src;
+                        }
+                        newImg.src = downloadURL;
+                        tb.value = downloadURL;
+                        urlhinh = downloadURL;
+
+                    });
+
+                }
+                //function () {
+                //    var name = document.getElementById('name').value;
+                //    var email = document.getElementById('email').value;
+                //    database.ref('KhachHang/' +'2').set({
+                //        username: name,
+                //        email: email,
+                //        profile_picture: tb.value
+                //    });
+                //}
+            );
+        }
+
+
+        window.addEventListener('load', initApp);
+
+        }())
+    </script>-->
+-->
+<!--@*<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-1T6Q91MJYuQiMWNd91DyBUStIq/8PuOw33a0qmvFpqI="
+            crossorigin="anonymous"></script>
+</head>
+<div class="form-group">
+    <label for="DiaChi">Địa chỉ</label>
+    <select class="form-control" id="province" name="province" style="margin-top:5px" onchange="changeFunc();">
+        <option value="" selected >----</option>
+    </select>
+    <select class="form-control" id="district" name="district" style="margin-top:5px">
+        <option value="" selected>Quận/Huyện</option>
+    </select>
+    <select class="form-control" id="ward" name="ward" style="margin-top:5px">
+        <option value="" selected>Phường/Xã</option>
+    </select>
+    <input class="form-control" type="text" id="duong" placeholder="Số nhà, Tên Đường" style="margin-top:5px" />
+</div>
+<script src="~/Content/bootstrap.min.js"></script>
+<script src="~/Content/jquery-3.3.1.min.js"></script>
+<script src="~/Content/tinhthanhapi.js"></script>*@-->

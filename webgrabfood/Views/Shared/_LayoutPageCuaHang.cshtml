@@ -1,20 +1,15 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/Content/style.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    
-    <link href="~/Content/dinhdangthanhcuon.css" rel="stylesheet" />
+    <link href="~/Content/DinhDnag.css" rel="stylesheet" />
     <link rel="stylesheet"
           href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <style>
-        .row {
-            margin: 0;
-        }
-    </style>
+
+    <!-- Demo styles -->
 
 </head>
 <body>
@@ -22,20 +17,13 @@
         <div class="row" style="background-color:#938f8f; min-height:600px">
             @RenderBody()
         </div>
-        <div class="row" id="footer">
-            <img src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2FFooterGrab.png?alt=media&token=2e9a79fc-ad4f-40da-85bb-010814e580ca" />
-        </div>
+        <div class="row" id="footer"><img src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2FFooterGrab.png?alt=media&token=2e9a79fc-ad4f-40da-85bb-010814e580ca" /></div>
 
     </div>
     <script src="~/Content/jquery-3.3.1.min.js"></script>
     <script src="~/Content/bootstrap.min.js"></script>
-
-    <script src="~/Content/thanhcuon.js"></script>
     <script src="~/Content/tinhthanhapi.js"></script>
-    <script src="~/Content/Food.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper(".mySwiper", {
             pagination: {

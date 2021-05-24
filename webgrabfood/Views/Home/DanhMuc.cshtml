@@ -1,0 +1,61 @@
+﻿@using webgrabfood.Models;
+
+@model List<DanhMuc>
+
+<div class="swiper-container mySwiper">
+    <div class="swiper-wrapper">
+        @foreach (DanhMuc l in Model)
+        {
+            <div class="swiper-slide">
+                <a role="button" class="slide" href="@Url.Action("HTTheoLoaiSP","Home", new { ml = l.IDDanhmuc })">
+                    <div class="container____Youi">
+                        <div class="placeholder___1xbBh">
+                            <img src="@l.mImage" style="opacity :1" class="realImage"/>
+                        </div>
+                        <div>@l.mName</div>
+
+                    </div>
+
+                </a>
+            </div>
+        }
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</div>
+@*<ul class="nav flex-column w-100" style="background-color:white">
+        <li class="nav-item  DanhMuc1">
+            <p> <img src="https://firebasestorage.googleapis.com/v0/b/webgrabfood.appspot.com/o/icon_DM.png?alt=media&token=5d79f385-a8c7-455e-9cb9-7bbd7cc5ef0b" style="width:40px;height:40px" />DANH MỤC</p>
+            <ul class="nav flex-column">
+                @foreach (LoaiSP l in Model)
+                {
+                    <li class="nav-item ">
+                        @Html.ActionLink(l.mName, "HTTheoLoaiSP", "Home", new { ml = l.sIDLoai }, new { @class = "nav-link" })
+                    </li>
+
+                }
+            </ul>
+        </li>
+    </ul>*@
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 5,
+        spaceBetween: 30,
+        slidesPerGroup: 5,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+</script>

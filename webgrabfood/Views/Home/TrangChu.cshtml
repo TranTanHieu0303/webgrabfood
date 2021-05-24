@@ -1,0 +1,27 @@
+﻿@using webgrabfood.Models;
+
+@{
+    ViewBag.Title = "TrangChu";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+
+@model List<CuaHang>
+<div class="row" style="padding:20px ;background-color:white">@Html.Action("DanhMuc", "Home")</div>
+<div class="row " style="width:90% ; margin:auto">
+    <div class="w-100" style="background-color:white">
+        <h2 style="padding-top:20px">@ViewBag.td</h2>
+        <div class="row" style="margin:10px">
+            @foreach (CuaHang ch in Model)
+            {
+                <div class="col-md-3 Sanpham" style="text-align:center;margin-bottom:10px;margin-top:10px ; padding:10px">
+                    <a href="@Url.Action("ChiTiet", "Home", new {ma=ch.idCH})" style="text-decoration:none;color:black">
+                        <img src="@ch.HinhAnh" style="width:200px;height:150px">
+                        <p style="font-size:20px">@ch.TenCH</p>
+                        <p>Địa chỉ:@ch.SonhaTenDuong, @ch.PhuongXa, @ch.QuanHuyen, @ch.TinhThanh</p>
+                    </a>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

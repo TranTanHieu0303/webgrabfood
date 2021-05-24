@@ -48,6 +48,9 @@
     <Reference Include="Firebase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FirebaseDatabase.net.4.0.6\lib\netstandard2.0\Firebase.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.Auth, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Firebase.Auth.1.0.0\lib\netstandard1.1\Firebase.Auth.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FirebaseStorage.net.1.0.3\lib\netstandard1.1\Firebase.Storage.dll</HintPath>
     </Reference>
@@ -283,22 +286,44 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CuaHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChitietHD.cs" />
+    <Compile Include="Models\CuaHang.cs" />
+    <Compile Include="Models\GioHang.cs" />
+    <Compile Include="Models\HoaDon.cs" />
+    <Compile Include="Models\itemGioHang.cs" />
+    <Compile Include="Models\KhachHang.cs" />
+    <Compile Include="Models\DanhMuc.cs" />
+    <Compile Include="Models\Menu_CH.cs" />
     <Compile Include="Models\SanPham.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app.js" />
+    <Content Include="Content\appImage.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.js" />
+    <Content Include="Content\dinhdangthanhcuon.css" />
+    <Content Include="Content\DinhDnag.css" />
+    <Content Include="Content\Food.js" />
+    <Content Include="Content\jquery-3.3.1.min.js" />
+    <Content Include="Content\popper.min.js" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\thanhcuon.js" />
+    <Content Include="Content\tinhthanhapi.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\JavaScript.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -327,6 +352,19 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutTrangChu.cshtml" />
+    <Content Include="Views\Home\TrangChu.cshtml" />
+    <Content Include="Views\Home\DanhMuc.cshtml" />
+    <Content Include="Views\Home\ChiTiet.cshtml" />
+    <Content Include="Views\Home\taikhoan.cshtml" />
+    <Content Include="Views\KhachHang\DangNhap.cshtml" />
+    <Content Include="Views\KhachHang\test.cshtml" />
+    <Content Include="Views\CuaHang\DangNhapCH.cshtml" />
+    <Content Include="Views\Shared\_LayoutPageCuaHang.cshtml" />
+    <Content Include="Views\CuaHang\TrangChuCh.cshtml" />
+    <Content Include="Views\CuaHang\MenuCh.cshtml" />
+    <Content Include="Views\CuaHang\dssp.cshtml" />
+    <Content Include="Views\Home\ThemDanhMuc.cshtml" />
+    <Content Include="Views\Home\giohang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,90 @@
+﻿@using webgrabfood.Models;
+@model List<Menu_CH>
+<style>
+    .menu-restaurant-category {
+        border: 1px solid #ebebeb;
+        padding: 15px 5px 15px 15px;
+        width: 235px;
+        margin-right: 10px;
+        background: #fff;
+        border-radius: 4px
+    }
+
+        .menu-restaurant-category .scrollbar-container {
+            max-height: calc(100vh - 100px);
+            position: relative;
+        }
+
+        .menu-restaurant-category .list-category {
+            position: relative
+        }
+
+            .menu-restaurant-category .list-category .item {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin: 5px 0;
+                padding: 2px 0
+            }
+
+            .menu-restaurant-category .list-category .item-link {
+                font-size: 13px;
+                display: inline-block;
+                color: #6d6f71;
+                text-transform: uppercase;
+                padding: 3px 7px 1px;
+                border-radius: 4px;
+                cursor: pointer
+            }
+
+                .menu-restaurant-category .list-category .item-link:hover {
+                    text-decoration: none
+                }
+
+                .menu-restaurant-category .list-category .item-link.active {
+                    background-color: #959595;
+                    color: #fff
+                }
+
+    .modal-backdrop {
+        z-index: -1;
+    }
+</style>
+<div class="menu-restaurant-category">
+    <div class="list-category">
+        <h4 style="width:50%;float:left">MENU</h4>
+        <button data-toggle="modal" data-target="#myMenuCH" id="chinhsua" style="float:right"><img src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Ficons8-add-property-30.png?alt=media&token=2034cf40-9688-4d02-955b-8c34aa318588" /></button>
+
+        <div class="scrollbar-container" style="clear:both">
+            @foreach (Menu_CH item in Model)
+            {
+                <div class="item">
+
+                    <span id="@item.idLoai" title="@item.mName" class="item-link">@item.mName</span>
+                    <img style="float:right; width:20px;height:20px" onclick="return open_chitiet('@item.idLoai', '@item.mName');"  src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Ficons8-edit.gif?alt=media&token=6a66eed9-4a0b-414a-a511-e03463c7fe07" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myMenuCH" tabindex="-1" role="dialog" aria-labelledby="myMenuCH" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h3 class="modal-title" style="text-align:center">Thông Tin MENU</h3></div>
+            <div class="modal-body">
+                <form>
+                        <input id="IDloai" class="form-control" name="IDloai" placeholder="Tên loại" style="display:none" />
+                    <div class="form-group">
+                        <label for="tenloai">Tên Loại</label>
+                        <input id="tenloai" class="form-control" name="tenloai" placeholder="Tên loại" />
+                    </div>
+                    <input class="form-control btn-success" type="submit" id="themnemu" name="themnemu" value="Add" onclick="return Add();" />
+                    <input class="form-control btn-warning" type="submit" id="updatenemu" name="updatenemu" value="Update" onclick="return Update();" style="display:none" />
+                    <input class="form-control btn-danger" type="submit" id="deletemenu" name="deletemenu" value="Delete" onclick="return Delete();" style="display:none;margin-top:5px" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

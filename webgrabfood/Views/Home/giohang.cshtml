@@ -1,0 +1,108 @@
+﻿@using webgrabfood.Models;
+
+@model GioHang
+    @{ 
+        KhachHang a = Session["kh"] as KhachHang;
+    }
+@if (Model != null)
+{
+        <div class="row">
+            <table class="table ">
+                <tr>
+                    <td>Tên Món</td>
+                    <td>Số lượng</td>
+                    <td>Giá</td>
+                    <td>Thành Tiền</td>
+                </tr>
+                @foreach (itemGioHang sp in @Model.list)
+                {
+                    <tr>
+                        <td>@sp.sTenSP</td>
+                        <td>@sp.iSoLuong</td>
+                        <td>@sp.dDonGia VND</td>
+                        <td>@sp.ThanhTien VND</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="row" style="font-size:20px ; font-weight:bold">
+            <div class="col-md-6">
+                <p> Tổng Tiền:</p>
+            </div>
+            <div class="col-md-6" style="text-align:right">
+                <p>@Model.TongThanhTien() VND</p>
+            </div>
+        </div>
+        <button class="btn btn-success form-control" data-toggle="modal" data-target="#mythanhtoan">Thanh Toán</button>
+        <div class="modal" id="mythanhtoan" tabindex="-1" aria-hidden="true" role="dialog" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" style="text-align:center">Xác Nhận Đơn Hàng</h3>
+                    </div>
+                    <div class="modal-body" >
+                        <form action="/Home/LuuDonHang" method="post">
+                            <table style="display:inline;font-size:19px" class="text-left w-80">
+                                <tr>
+                                    <td>Họ và Tên: </td>
+                                    <td>@a.TenKH</td>
+                                </tr>
+                                <tr>
+                                    <td>Điện Thoại:</td>
+                                    <td>@a.SDT</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-left">Địa CHỉ: @a.SonhaTenDuong, @a.PhuongXa, @a.QuanHuyen, @a.TinhThanh</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày Đặt: </td>
+                                    <td>@DateTime.Now.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày Giao: </td>
+                                    <td><input type="date" name="txtDate" /></td>
+                                </tr>
+                                <tr>
+                                    <td> </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        <table>
+                                            <tr><td colspan="4" class="text-danger">Thông Tin Đơn Hàng</td> </tr>
+                                            <tr>
+                                                <td> Tên Món</td>
+                                                <td> Số Lượng</td>
+                                                <td> Đơn Giá</td>
+                                                <td> Thành Tiền</td>
+                                            </tr>
+                                            @foreach (itemGioHang item in Model.list)
+                                            {
+                                                <tr>
+                                                    <td> @item.sTenSP</td>
+                                                    <td> @item.iSoLuong</td>
+                                                    <td> @item.dDonGia </td>
+                                                    <td> @item.ThanhTien</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td>Tổng Số Lượng Món Đặt:</td>
+                                                <td> @Model.TongSL()</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tổng Tiền : </td>
+                                                <td>@Model.TongThanhTien() VND</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+                            <input class="btn-primary form-control" type="submit" value="Đồng Ý" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+}
