@@ -24,23 +24,23 @@ namespace webgrabfood.Models
         }
         IFirebaseConfig config = new FirebaseConfig
         {
-            AuthSecret = "WLiuHSmqhvphkmigEwyqYkQpCyHh0SmbQ3EA0eER",
-            BasePath = "https://grabfood-7b5a8-default-rtdb.firebaseio.com/"
+            AuthSecret = "3EPUNova45ftx07snTnnjnWLiXtFKH2CtMXuoIWn",
+            BasePath = "https://grapfood-7b658-default-rtdb.firebaseio.com/"
         };
         IFirebaseClient client;
         //phuong thuc khoi tao
-        public itemGioHang(string ms)
+        public itemGioHang(string ms,string mch)
         {
             client = new FireSharp.FirebaseClient(config);
-            FirebaseResponse response = client.Get("SanPham/" + ms);
+            FirebaseResponse response = client.Get("Users/" + mch + "/Products/" + ms);
             SanPham sp = JsonConvert.DeserializeObject<SanPham>(response.Body);
             if (sp != null)
             {
-                sMaCH = sp.idCH;
+                sMaCH = sp.uid;
                 sMaSanPham = ms;
-                sTenSP = sp.nameDrink;
-                sHinhAnh = sp.hinh;
-                dDonGia = (int)sp.price;
+                sTenSP = sp.productTitle;
+                sHinhAnh = sp.productIcon;
+                dDonGia = (int)sp.originalPrice;
                 iSoLuong = 1;
             }
         }

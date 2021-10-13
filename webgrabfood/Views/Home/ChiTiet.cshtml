@@ -161,15 +161,39 @@
         z-index: -1;
     }
 </style>
+@if (Request.HttpMethod == "POST")
+{
+    if (ViewBag.tb == 1)
+    {
+        <script>
+            confirm("Đặt hàng thành công");
+        </script>
+    }
+    else
+        if (ViewBag.tb == 0)
+    {
+        <script >
+            confirm("Đặt hàng không thành công");
+        </script>
+    }
+    else
+        if (ViewBag.tb == 2)
+    {
+        <script>
+            confirm("Chúng tôi không thể giao hàng đến địa chỉ không cùng tỉnh với quán");
+        </script>
+    }
+}
 <div class="row" style="background-color: white ;min-height:440px">
     <div class="col-md-4" style="padding:20px">
-        <div class="swiper-slide"><img src="@Model.HinhAnh" style="width:400px ;height:400px" /></div>
+        <div class="swiper-slide"><img src="@Model.ImageURL" style="width:400px ;height:400px" /></div>
     </div>
     <div class="col-md-8" style="padding:20px; font-size:18px">
-        <h2>@Model.TenCH</h2>
+        <h2>@Model.NameShop</h2>
         <p>Mô tả : @Model.MoTa</p>
-        <p>Địa chỉ:@Model.SonhaTenDuong, @Model.PhuongXa, @Model.QuanHuyen, @Model.TinhThanh</p>
-        <p>Liên hệ:@Model.SDT - @Model.Gmail</p>
+        <p>Địa chỉ:@Model.House, @Model.Area, @Model.State, @Model.City</p>
+        <p>Liên hệ:@Model.MobileNo - @Model.EmailId</p>
+        <a class="btn btn-danger" href="@Url.Action("DangNhapCH","CuaHang")">Dành Cho Cửa Hàng</a>
     </div>
 </div>
 <div class="row" style="clear:both;margin:5px 0 5px 0">
@@ -193,48 +217,48 @@
         </div>
     </div>
     <div class="col-md-6" style="min-height:600px">
-        
-<div style="background-color:white;border-radius:5px;padding:10px;margin:0">
-    <div class="row"><input class="glyphicon-search form-control" type="search" id="search" placeholder="Tìm kiếm" /></div>
-    <div class="row" id="mynamesp">
-        @foreach (Menu_CH menu in ViewData["Menu"] as List<Menu_CH>)
-        {
-            <div class="row menu-group" id="section-@menu.idLoai">
 
-                <h3 style="background-color:gainsboro;height:40px;padding-top:5px">
-                    @menu.mName
-                   
-                </h3>
-
-
-                @foreach (SanPham sp in ViewData["SanPham"] as List<SanPham>)
+        <div style="background-color:white;border-radius:5px;padding:10px;margin:0">
+            <div class="row"><input class="glyphicon-search form-control" type="search" id="search" placeholder="Tìm kiếm" /></div>
+            <div class="row" id="mynamesp">
+                @foreach (Menu_CH menu in ViewData["Menu"] as List<Menu_CH>)
                 {
-                    if (sp.idCate == menu.idLoai)
-                    {
-            <div class="row w-100 mt-2" style="border-bottom:solid 1px #808080;padding:5px">
+                    <div class="row menu-group" id="section-@menu.idLoai">
 
-                <div class="col-md-3">
-                    <img src="@sp.hinh" style="width:100px;height:100px; border-radius:5px;" />
-                </div>
-                <div class="col-md-6">
-                    <p>@sp.nameDrink</p>
-                </div>
-                <div class="col-md-3">
-                    <p>@sp.price VND</p>
+                        <h3 style="background-color:gainsboro;height:40px;padding-top:5px">
+                            @menu.mName
 
-                </div>
-                <a href="@Url.Action("themgiohang","Home",new { ma = sp.id})"><img style="float:right" src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Ficons8-add-new-30.png?alt=media&token=4a686ee0-4378-4148-a600-3bdac3b5325b" /></a>
+                        </h3>
 
-            </div>
 
-                    }
+                        @foreach (SanPham sp in ViewData["SanPham"] as List<SanPham>)
+                        {
+                            if (sp.productCategory == menu.idLoai)
+                            {
+                                <div class="row w-100 mt-2" style="border-bottom:solid 1px #808080;padding:5px">
 
+                                    <div class="col-md-3">
+                                        <img src="@sp.productIcon" style="width:100px;height:100px; border-radius:5px;" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@sp.productTitle</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p>@sp.originalPrice VND</p>
+
+                                    </div>
+                                    <a href="@Url.Action("themgiohang","Home",new { ma = sp.productId})"><img style="float:right" src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Ficons8-add-new-30.png?alt=media&token=4a686ee0-4378-4148-a600-3bdac3b5325b" /></a>
+
+                                </div>
+
+                            }
+
+                        }
+                    </div>
                 }
             </div>
-        }
-    </div>
-   
-</div>
+
+        </div>
     </div>
     <div class="col-md-3" style="padding:0 10px ;background-color:white;border-radius:5px" id="giohang">
         <h2 class="w-100" style="border-bottom:solid 1px #fff">Giỏ Hàng</h2>

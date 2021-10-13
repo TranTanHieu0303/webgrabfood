@@ -7,12 +7,15 @@ namespace webgrabfood.Models
 {
     public class HoaDon
     {
-        public string idHD { set; get; }
-        public string idCh { set; get; }
-        public string idKH { set; get; }
-        public DateTime NgayDat { set; get; }
-        public DateTime NgayGiao { set; get; }
-        public int TongTien { set; get; }
-        public string TinhTrang { set; get; }
+        public string orderId { set; get; }
+        public string orderTo { set; get; }
+        public string orderBy { set; get; }
+        //public DateTime NgayDat { set; get; }
+        //public DateTime NgayGiao { set; get; }
+        public int orderCost { set; get; }
+        public string orderStatus { set; get; }
+        public string orderTime { set; get; }
+        public string latitude { set; get; }
+        public string longitude { set; get; }
     }
 }

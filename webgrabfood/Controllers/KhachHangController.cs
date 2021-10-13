@@ -21,8 +21,8 @@ namespace webgrabfood.Controllers
         // GET: KhachHang
         IFirebaseConfig config = new FireSharp.Config.FirebaseConfig
         {
-            AuthSecret = "WLiuHSmqhvphkmigEwyqYkQpCyHh0SmbQ3EA0eER",
-            BasePath = "https://grabfood-7b5a8-default-rtdb.firebaseio.com/"
+            AuthSecret = "3EPUNova45ftx07snTnnjnWLiXtFKH2CtMXuoIWn",
+            BasePath = "https://grapfood-7b658-default-rtdb.firebaseio.com/"
         };
         IFirebaseClient client;
         [HttpGet]
@@ -38,21 +38,25 @@ namespace webgrabfood.Controllers
             string usename = f["usename"];
             string pas = f["pass"];
             client = new FireSharp.FirebaseClient(config);
-            FirebaseResponse response = client.Get("KhachHang");
+            FirebaseResponse response = client.Get("Users");
             dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
             foreach(var item in data)
             {
-                KhachHang kh = JsonConvert.DeserializeObject<KhachHang>(((JProperty)item).Value.ToString());
-                if ((kh.Gmail==usename|| kh.SDT == usename)&&kh.Password==pas)
+                Uesr user = JsonConvert.DeserializeObject<Uesr>(((JProperty)item).Value.ToString());
+                if (user.AccountType == "Customer")
                 {
-                    kh.idKH= ((JProperty)item).Name.ToString();
-                    Session["kh"] = kh;
-                    CuaHang ch = Session["ctch"] as CuaHang;
-                    if (ch == null)
-                        return RedirectToAction("TrangChu", "Home");
-                    else
-                        return RedirectToAction("ChiTiet", "Home", new { ma = ch.idCH });
+                    KhachHang kh = JsonConvert.DeserializeObject<KhachHang>(((JProperty)item).Value.ToString());
+                    if ((kh.EmailId == usename || kh.MobileNo == usename) && kh.Password == pas)
+                    {
+                        kh.UID = ((JProperty)item).Name.ToString();
+                        Session["kh"] = kh;
+                        CuaHang ch = Session["ctch"] as CuaHang;
+                        if (ch == null)
+                            return RedirectToAction("TrangChu", "Home");
+                        else
+                            return RedirectToAction("ChiTiet", "Home", new { ma = ch.UID });
 
+                    }
                 }
             }
             return View();

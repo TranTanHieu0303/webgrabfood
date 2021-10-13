@@ -36,12 +36,12 @@ namespace webgrabfood.Models
             return list.Sum(t => t.ThanhTien);
         }
         //pt xu ly
-        public int Them(string ms)
+        public int Them(string ms,string mch)
         {
             itemGioHang sp = list.SingleOrDefault(g => g.sMaSanPham == ms);
             if (sp == null)
             {
-                itemGioHang a = new itemGioHang(ms);
+                itemGioHang a = new itemGioHang(ms,mch);
                 if (a == null)
                     return 0;
                 if (list.Count != 0)

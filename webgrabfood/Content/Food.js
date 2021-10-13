@@ -10,7 +10,35 @@
     $("#openfile").click(function () {
         $("input[id='hinhanh']").click();
     });
+    $("#suadiachi").click(function () {
+        console.log("a");
+        $("#diachi").css("display", "block");
+    })
+    $("#Luudiachi").click(function () {
+        let selectbox1 = document.getElementById('province');
+        let selectbox2 = document.getElementById('district');
+        let selectbox3 = document.getElementById('ward');
+        var tinh = selectbox1.options[selectbox1.selectedIndex].text;
+        var huyen = selectbox2.options[selectbox2.selectedIndex].text;
+        var xa = selectbox3.options[selectbox3.selectedIndex].text;
+        var dia = $("#duongCH").val();
+        if (tinh != "Tỉnh/Thành Phố" && huyen != "Quận/Huyện" && xa != "Phường/Xã") {
+            $("#diac").html("<p> Địa Chỉ : " + dia + ", " + xa + ", " + huyen + ", " + tinh + "</p>");
+            console.log("Địa Chỉ : " + dia + ", " + xa + ", " + huyen + ", " + tinh);
+        }
+        $("#diachi").css("display", "none");
+    })
 });
+function Luudiachi() {
+    let selectbox1 = document.getElementById('province');
+    let selectbox2 = document.getElementById('district');
+    let selectbox3 = document.getElementById('ward');
+    var tinh = selectbox1.val();
+    var huyen = selectbox2.val();
+    var xa = selectbox3.val();
+    var dia = $("#duongCH").val();
+    $("#diac").innerHTML = "Địa Chỉ : " + dia + ", " + xa + ", " + huyen + ", " + tinh;
+}
 function Add() {
     var emp = {
         mName: $('#tenloai').val(),
@@ -23,8 +51,11 @@ function Add() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                confirm('Thêm thành công');
-                $('#iclose').trigger('click');
+                if (result==1)
+                    confirm('Thêm thành công');
+                else
+                    confirm('Thêm không thành công');
+               
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
@@ -47,11 +78,13 @@ function setform(sp) {
     form.enctype = 'multipart/form-data';
     console.log(form);
     const ima = document.getElementById('hinh');
-    $('#idsp').val(sp.id);
-    $('#idloai').val(sp.idCate);
-    $('#tensp').val(sp.nameDrink);
-    $('#Gia').val(sp.price);
-    ima.src = sp.hinh;
+    $('#idsp').val(sp.productId);
+    $('#idloai').val(sp.productCategory);
+    $('#tensp').val(sp.productTitle);
+    $('#Gia').val(sp.originalPrice);
+    $('#productDesciptions').val(sp.productDesciptions);
+    $('#productQuanlity').val(sp.productQuanlity);
+    ima.src = sp.productIcon;
     $('#addSanp').modal('show');
     $('#themsp').hide();
     $('#updatesp').show();
@@ -73,7 +106,7 @@ function open_updatesp(mID) {
 
         });
 }
-function open_addsp(idloai) {
+function open_addsp(idloai) { 
     var form = document.getElementById('frmsp');
     form.action = '/CuaHang/ThemSpAsync';
     form.method = 'post';
@@ -94,7 +127,10 @@ function Update() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                alert('Cập nhật thành công');
+                if (result==1)
+                    alert('Cập nhật thành công');
+                else
+                    alert('Cập nhật không thành công');
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
@@ -115,7 +151,10 @@ function Delete() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                alert('Xóa thành công');
+                if (result==1)
+                    alert('Xóa thành công');
+                else
+                    alert('Xóa không thành công');
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
@@ -154,6 +193,7 @@ function Deletesp() {
 
         });
 }
+
 //function xoahinh(url) {
 //    var chuoi = $('#xoahinh').val();
 //    chuoi += url;

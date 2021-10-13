@@ -12,24 +12,23 @@
     else
     {
         KhachHang kh = Session["kh"] as KhachHang;
-        <div class="col-md-8">
-            <p style="font-weight:bold;font-size:20px;padding:inherit">@kh.TenKH</p>
-        </div>
-        <div class="col-md-4">
-            <nav class="navbar">
-                <div class="dropdown">
-                    <a class="dropdowwn-toggle" data-toggle="dropdown" id="TaiKhoan" aria-haspopup="true" aria-expanded="false" href="#"><img src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Favatar-facebook-chat-4_105604005.jpg?alt=media&token=40ceeec6-8c26-467c-8490-eeb284be6e17" style="width:50px;height:50px;border-radius: 30px;" /></a>
-                    <div class="dropdown-menu" aria-labelledby="TaiKhoan" style="margin-left:-100px">
-                        <a class="dropdown-item" href="@Url.Action("ThongTinTaiKhoan", "KhachHang", new {makh = kh.idKH })">Thông Tin Tài Khoản</a>
-                        <a class="dropdown-item" href="@Url.Action("DangNhap","KhachHang")">Đăng Xuất</a>
+<div>
+    <p style="font-size:medium">Xin Chào,@kh.FirstName</p>
+    <a href="@Url.Action("DangNhap", "KhachHang")"><i class="fa fa-lock"></i>Đăng Xuất</a>
+    <!--<nav class="navbar">
+        <div class="dropdown">
+            <p class="dropdowwn-toggle" data-toggle="dropdown" id="TaiKhoan" aria-haspopup="true" aria-expanded="false" style="font-weight:bold;font-size:20px;padding:inherit">@kh.FirstName</p>-->
+    @*<div class="dropdown-menu" aria-labelledby="TaiKhoan" style="margin-left:-100px">
+            <a class="dropdown-item" href="@Url.Action("ThongTinTaiKhoan", "KhachHang", new {makh = kh.idKH })">Thông Tin Tài Khoản</a>
+            <a class="dropdown-item" href="@Url.Action("DangNhap","KhachHang")">Đăng Xuất</a>
 
-                    </div>
-                </div>
-            </nav>
-            <script src="~/Content/bootstrap/bootstrap/js/jquery-3.3.1.min.js"></script>
-            <script src="~/Content/bootstrap/bootstrap/js/bootstrap.min.js"></script>
+        </div>*@
+    <!--</div>
+    </nav>-->
+    <script src="~/Content/bootstrap/bootstrap/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/bootstrap/bootstrap/js/bootstrap.min.js"></script>
 
-
-        </div>
+    
+</div>
     }
 </div>

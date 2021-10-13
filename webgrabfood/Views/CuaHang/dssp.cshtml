@@ -17,20 +17,20 @@
 
                 @foreach (SanPham sp in Model)
                 {
-                    if (sp.idCate == menu.idLoai)
+                    if (sp.productCategory == menu.idLoai)
                     {
                         <div class="row w-100 mt-2" style="border-bottom:solid 1px #808080;padding:5px">
 
                             <div class="col-md-3">
-                                <img src="@sp.hinh" style="width:100px;height:100px; border-radius:5px;" />
+                                <img src="@sp.productIcon" style="width:100px;height:100px; border-radius:5px;" />
                             </div>
                             <div class="col-md-6">
-                                <p>@sp.nameDrink</p>
+                                <p>@sp.productTitle</p>
                             </div>
                             <div class="col-md-3">
-                                <p>@sp.price VND</p>
+                                <p>@sp.originalPrice VND</p>
                             </div>
-                            <img style="float:right; width:20px;height:20px" onclick="open_updatesp('@sp.id')" src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Ficons8-edit.gif?alt=media&token=6a66eed9-4a0b-414a-a511-e03463c7fe07" />
+                            <img style="float:right; width:20px;height:20px" onclick="open_updatesp('@sp.productId')" src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Ficons8-edit.gif?alt=media&token=6a66eed9-4a0b-414a-a511-e03463c7fe07" />
                         </div>
 
                     }
@@ -42,7 +42,7 @@
    
 </div>
 
-<div class="modal fade" id="addSanp" tabindex="-1" role="dialog" aria-labelledby="mysanpham" aria-hidden="true">
+<div class="modal " id="addSanp" tabindex="-1" role="dialog" aria-labelledby="mysanpham" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header"><h3 class="modal-title" style="text-align:center">Thông tin sản phẩm</h3></div>
@@ -55,6 +55,14 @@
                         <input id="tensp" class="form-control" name="tensp" placeholder="Tên loại" />
                     </div>
                     <div class="form-group">
+                        <label for="Tnp">Mô Tả Sản Phẩm</label>
+                        <input id="productDesciptions" class="form-control" name="productDesciptions" placeholder="Tên loại" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Tnp">Định lượng</label>
+                        <input id="productQuanlity" class="form-control" name="productQuanlity" placeholder="Tên loại" />
+                    </div>
+                    <div class="form-group">
                         <label for="Gia">Giá Bán</label>
                         <input id="Gia" class="form-control" name="Gia" type="number" placeholder="Giá Bán" />
                     </div>
@@ -65,7 +73,7 @@
                     </div>
                     <input class="form-control btn-success" type="submit" id="themsp" value="Add" />
                     <input class="form-control btn-warning" type="submit" id="updatesp" value="Update" style="display:none" />
-                    <input class="form-control btn-danger"  type="submit" id="deletesp" value="Delete" onclick="return Deletesp();" style="display:none ; margin-top:5px" />
+                    <input class="form-control btn-danger" type="submit" id="deletesp" value="Delete" onclick="return Deletesp();" style="display:none ; margin-top:5px" />
                 </form>
             </div>
         </div>

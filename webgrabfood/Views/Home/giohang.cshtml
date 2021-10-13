@@ -45,31 +45,49 @@
                             <table style="display:inline;font-size:19px" class="text-left w-80">
                                 <tr>
                                     <td>Họ và Tên: </td>
-                                    <td>@a.TenKH</td>
+                                    <td>@a.FirstName @a.LastName</td>
                                 </tr>
                                 <tr>
                                     <td>Điện Thoại:</td>
-                                    <td>@a.SDT</td>
+                                    <td>@a.MobileNo</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-left">Địa CHỉ: @a.SonhaTenDuong, @a.PhuongXa, @a.QuanHuyen, @a.TinhThanh</td>
+                                    <td colspan="2" class="text-left">
+                                        <div id="diac">
+                                            <p>Địa CHỉ: @a.House, @a.Area, @a.State, @a.City</p>
+                                        </div>
+                                    <img id="suadiachi"  style="float:right; width:20px;height:20px" src="https://firebasestorage.googleapis.com/v0/b/grabfood-7b5a8.appspot.com/o/Image%2Ficons8-edit.gif?alt=media&token=6a66eed9-4a0b-414a-a511-e03463c7fe07" />
+                                    <div id="diachi" style="display:none">
+                                        <select class="form-control" id="province" name="provinceCH" style="margin-top:5px" onchange="changeFunc();">
+                                            <option  selected>Tỉnh/Thành Phố</option>
+                                        </select>
+                                        <select class="form-control" id="district" name="districtCH" style="margin-top:5px" onchange="changeFuncDictrict();">
+                                            <option  selected>Quận/Huyện</option>
+                                        </select>
+                                        <select class="form-control" id="ward" name="wardCH" style="margin-top:5px">
+                                            <option   selected>Phường/Xã</option>
+                                        </select>
+                                        <input class="form-control" type="text" id="duongCH" name="duongCH" placeholder="Số nhà, Tên Đường" style="margin-top:5px" />
+                                        <input class="form-control btn-success text-center" id="Luudiachi" value="Lưu" />
+                                    </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Ngày Đặt: </td>
-                                    <td>@DateTime.Now.ToShortDateString()</td>
+                                    <td>@DateTime.Now.ToString()</td>
                                 </tr>
                                 <tr>
-                                    <td>Ngày Giao: </td>
-                                    <td><input type="date" name="txtDate" /></td>
+                                    <td>Ngày Giao:(dự kiến) </td>
+                                    <td>@DateTime.Now.AddMinutes(20)</td>
                                 </tr>
                                 <tr>
                                     <td> </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-center">
+                                    <td colspan="2" >
                                         <table>
-                                            <tr><td colspan="4" class="text-danger">Thông Tin Đơn Hàng</td> </tr>
+                                            <tr><td colspan="4" class="text-danger text-center">Thông Tin Đơn Hàng</td> </tr>
                                             <tr>
                                                 <td> Tên Món</td>
                                                 <td> Số Lượng</td>
@@ -106,3 +124,8 @@
             </div>
         </div>
 }
+else
+            {
+                <p>Giỏ Hàng trống</p>
+            }
+<script src="~/Content/tinhthanhapi.js"></script>
